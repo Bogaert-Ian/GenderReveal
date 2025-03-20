@@ -1,0 +1,40 @@
+name: Update Click Counts
+
+on:
+  workflow_dispatch:
+    inputs:
+      gender:
+        description: 'Gender to vote for (boy/girl)'
+        required: true
+
+jobs:
+  update-votes:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Read current votes
+        id: read_votes
+        run: |
+          cat clicks.json
+          echo "::set-output name=boy_count::$(jq .boy clicks.json)"
+          echo "::set-output name=girl_count::$(jq .girl clicks.json)"
+
+      - name: Update vote count
+        run: |
+          if [ "${{ github.event.inputs.gender }}" = "boy" ]; then
+            new_count=$(( ${{ steps.read_votes.outputs.boy_count }} + 1 ))
+            jq ".boy = $new_count" clicks.json > temp.json && mv temp.json clicks.json
+          else
+            new_count=$(( ${{ steps.read_votes.outputs.girl_count }} + 1 ))
+            jq ".girl = $new_count" clicks.json > temp.json && mv temp.json clicks.json
+          fi
+
+      - name: Commit and push changes
+        run: |
+          git config user.name "github-actions"
+          git config user.email "github-actions@github.com"
+          git add clicks.json
+          git commit -m "Update click counts"
+          git push
