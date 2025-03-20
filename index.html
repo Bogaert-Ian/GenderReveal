@@ -114,18 +114,18 @@
                         }
                     }, 1000);
                 };
-            }, 2000);
+            }, 3000);
         }
 
         window.onload = () => {
             const urlParams = new URLSearchParams(window.location.search);
             const isAdmin = urlParams.get('admin') === 'true';
             const now = new Date(new Date().toLocaleString('en-US', { timeZone: 'Europe/Brussels' }));
-           // const utcOffset = now.getTimezoneOffset();
-           // const belgiumOffset = -60; // Belgium is UTC+1 normally
-            //const adjustedNow = new Date(now.getTime() + (belgiumOffset - utcOffset) * 60 * 1000);
-            console.log("Now: " + now);
+            const utcOffset = now.getTimezoneOffset();
+            const belgiumOffset = -60; // Belgium is UTC+1 normally
+            const adjustedNow = new Date(now.getTime() + (belgiumOffset - utcOffset) * 60 * 1000);
             const revealTime = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 19, 30, 0);
+
             if (now < revealTime && !isAdmin) {
                 const countdownElement = document.createElement('div');
                 countdownElement.style.textAlign = 'center';
@@ -135,17 +135,15 @@
                 document.body.appendChild(countdownElement);
 
                 const updateCountdown = setInterval(() => {
-                               const now = new Date(new Date().toLocaleString('en-US', { timeZone: 'Europe/Brussels' }));
- const timeLeft = revealTime - now;
-                                console.log("Now: " + now);
-                                console.log("left: " + timeLeft);
+                    const timeLeft = revealTime - new Date();
                     if (timeLeft <= 0) {
                         clearInterval(updateCountdown);
                         location.reload();
                     } else {
+                        const hours = Math.floor((timeLeft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
                         const minutes = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
                         const seconds = Math.floor((timeLeft % (1000 * 60)) / 1000);
-                        countdownElement.innerHTML = `<h1>Revealing in ${minutes}m ${seconds}s</h1>`;
+                        countdownElement.innerHTML = `<h1>Revealing in ${hours}h ${minutes}m ${seconds}s</h1>`;
                     }
                 }, 1000);
             }
