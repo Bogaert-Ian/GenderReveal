@@ -1,44 +1,40 @@
-// server.js
-const express = require('express');
-const fs = require('fs');
-const app = express();
-const PORT = 3000;
+// script.js
+const repo = 'Bogaert-Ian/GenderReveal';
+const token = 'YOUR_PERSONAL_ACCESS_TOKEN';
 
-// Enable CORS for local testing
-app.use((req, res, next) => {
-    res.header('Access-Control-Allow-Origin', '*');
-    res.header('Access-Control-Allow-Methods', 'GET, POST');
-    next();
-});
+async function fetchResults() {
+    try {
+        const response = await fetch(`https://api.github.com/repos/${repo}/contents/clicks.json`, {
+            headers: { 'Accept': 'application/vnd.github.v3+json' }
+        });
+        const data = await response.json();
+        const content = JSON.parse(atob(data.content));
+        document.getElementById('results').innerText = `Boy: ${content.boy} | Girl: ${content.girl}`;
+    } catch (error) {
+        console.error('Error fetching results:', error);
+    }
+}
 
-// Endpoint to fetch results
-app.get('/results', (req, res) => {
-    fs.readFile('clicks.json', 'utf8', (err, data) => {
-        if (err) return res.status(500).json({ error: 'Error reading data' });
-        res.json(JSON.parse(data));
-    });
-});
+async function vote(gender) {
+    try {
+        await fetch(`https://api.github.com/repos/${repo}/actions/workflows/update-votes.yml/dispatches`, {
+            method: 'POST',
+            headers: {
+                'Authorization': `token ${token}`,
+                'Accept': 'application/vnd.github.v3+json'
+            },
+            body: JSON.stringify({
+                ref: 'main',
+                inputs: { gender }
+            })
+        });
+            jq ".girl = $new_count" clicks.json > temp.json && mv temp.json clicks.json
+          fi
 
-// Endpoint to handle votes
-app.post('/vote/:gender', (req, res) => {
-    const gender = req.params.gender;
-    fs.readFile('clicks.json', 'utf8', (err, data) => {
-        if (err) return res.status(500).json({ error: 'Error reading data' });
-        const counts = JSON.parse(data);
-
-        if (gender === 'boy' || gender === 'girl') {
-            counts[gender] += 1;
-
-            fs.writeFile('clicks.json', JSON.stringify(counts), (err) => {
-                if (err) return res.status(500).json({ error: 'Error writing data' });
-                res.json({ message: 'Vote recorded!' });
-            });
-        } else {
-            res.status(400).json({ error: 'Invalid gender' });
-        }
-    });
-});
-
-app.listen(PORT, () => {
-    console.log(`Server running on http://localhost:${PORT}`);
-});
+      - name: Commit and push changes
+        run: |
+          git config user.name "github-actions"
+          git config user.email "github-actions@github.com"
+          git add clicks.json
+          git commit -m "Update click counts"
+          git push
