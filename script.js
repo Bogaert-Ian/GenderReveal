@@ -28,13 +28,10 @@ async function vote(gender) {
                 inputs: { gender }
             })
         });
-            jq ".girl = $new_count" clicks.json > temp.json && mv temp.json clicks.json
-          fi
+        setTimeout(fetchResults, 2000);  // Wait for GitHub Action to complete
+    } catch (error) {
+        console.error('Error voting:', error);
+    }
+}
 
-      - name: Commit and push changes
-        run: |
-          git config user.name "github-actions"
-          git config user.email "github-actions@github.com"
-          git add clicks.json
-          git commit -m "Update click counts"
-          git push
+window.onload = fetchResults;
