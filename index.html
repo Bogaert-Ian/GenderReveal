@@ -16,15 +16,18 @@
             font-family: 'Nunito', sans-serif;
             background-color: #f0f0f0;
             background: linear-gradient(to right, #6ba8ff, #ffc0cb);
+            overflow: hidden;
         }
 
         #revealContainer {
             text-align: center;
             background-color: white;
             border-radius: 20px;
-            box-shadow: 0px 4px 15px rgba(0,0,0,0.1);
+            box-shadow: 0px 4px 15px rgba(0,0,0,0.2);
             padding: 40px;
+            max-width: 600px;
             transition: all 0.5s ease;
+            position: relative;
         }
 
         #revealButton {
@@ -37,6 +40,7 @@
             cursor: pointer;
             transition: background-color 0.3s;
             margin-top: 20px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
         }
 
         #revealButton:hover {
@@ -48,11 +52,32 @@
             font-size: 3em;
             margin-top: 20px;
             color: #ff6b6b;
+            font-weight: bold;
         }
+
+        .decoration {
+            position: absolute;
+            width: 100px;
+            height: 100px;
+            background-color: rgba(255, 192, 203, 0.5);
+            border-radius: 50%;
+            z-index: -1;
+            animation: float 5s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+
+        .circle1 { top: -40px; left: -40px; }
+        .circle2 { bottom: -40px; right: -40px; background-color: rgba(107, 168, 255, 0.5); }
     </style>
 </head>
 <body>
     <div id="revealContainer">
+        <div class="decoration circle1"></div>
+        <div class="decoration circle2"></div>
         <h1 style="color: #555; margin-bottom: 20px;">Boy or Girl?</h1>
         <button id="revealButton" onclick="revealGender()">Reveal the Gender!</button>
         <div id="message"></div>
@@ -75,13 +100,13 @@
                     document.body.innerHTML = `
                         <div style="text-align: center; padding: 50px; background-color: #ffe4e9;">
                             <h1 style="font-size: 4em; margin-bottom: 20px; color: #d63384;">It's a Girl! 🎀</h1>
-                            <p style="font-size: 1.5em; color: #d63384;">We are so excited to welcome a little princess!</p>
-                            <img src="https://cdn.pixabay.com/photo/2016/10/25/12/28/pink-1768927_1280.jpg" alt="It's a Girl" style="max-width: 300px; margin-top: 20px; border-radius: 15px; box-shadow: 0 4px 10px rgba(0,0,0,0.1);">
+                            <p style="font-size: 1.5em; color: #d63384;">We are thrilled to welcome a little princess!</p>
+                            <img src="https://images.unsplash.com/photo-1549834123-b960a6642b26?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=400" alt="It's a Girl" style="max-width: 300px; margin-top: 20px; border-radius: 15px; box-shadow: 0 4px 10px rgba(0,0,0,0.2);">
                         </div>
                     `;
                     confetti({
-                        particleCount: 200,
-                        spread: 70,
+                        particleCount: 300,
+                        spread: 100,
                         origin: { y: 0.6 },
                         colors: ['#ff6b6b', '#ffc0cb']
                     });
