@@ -121,11 +121,10 @@
             const urlParams = new URLSearchParams(window.location.search);
             const isAdmin = urlParams.get('admin') === 'true';
             const now = new Date(new Date().toLocaleString('en-US', { timeZone: 'Europe/Brussels' }));
-            const utcOffset = now.getTimezoneOffset();
-            const belgiumOffset = -60; // Belgium is UTC+1 normally
-            const adjustedNow = new Date(now.getTime() + (belgiumOffset - utcOffset) * 60 * 1000);
+           // const utcOffset = now.getTimezoneOffset();
+           // const belgiumOffset = -60; // Belgium is UTC+1 normally
+            //const adjustedNow = new Date(now.getTime() + (belgiumOffset - utcOffset) * 60 * 1000);
             const revealTime = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 19, 30, 0);
-console.log("Reveal:" + revealTime);
             if (now < revealTime && !isAdmin) {
                 const countdownElement = document.createElement('div');
                 countdownElement.style.textAlign = 'center';
@@ -135,7 +134,7 @@ console.log("Reveal:" + revealTime);
                 document.body.appendChild(countdownElement);
 
                 const updateCountdown = setInterval(() => {
-                    const timeLeft = revealTime - new Date();
+                    const timeLeft = revealTime -  new Date(new Date().toLocaleString('en-US', { timeZone: 'Europe/Brussels' }));
                     if (timeLeft <= 0) {
                         clearInterval(updateCountdown);
                         location.reload();
