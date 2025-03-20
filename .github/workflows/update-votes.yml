@@ -38,8 +38,8 @@ jobs:
 
       - name: Commit and push changes
         env:
-          TOKEN: ${{ secrets.PAT_TOKEN }}  # Use the secret token here
+          GITHUB_TOKEN: ${{ secrets.PAT_TOKEN }}  # Use a PAT token stored in GitHub Secrets
         run: |
           git add clicks.json
           git commit -m "Update click counts"
-          git push https://x-access-token:${TOKEN}@github.com/${{ github.repository }}.git HEAD:main
+          git push https://x-access-token:${GITHUB_TOKEN}@github.com/${{ github.repository }}.git HEAD:main
