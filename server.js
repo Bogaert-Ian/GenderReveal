@@ -1,6 +1,6 @@
 // script.js
 const repo = 'Bogaert-Ian/GenderReveal';
-const token = 'YOUR_PERSONAL_ACCESS_TOKEN';
+const token = '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';
 
 async function fetchResults() {
     try {
