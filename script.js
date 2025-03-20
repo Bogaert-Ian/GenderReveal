@@ -25,8 +25,8 @@ async function vote(gender) {
         const response = await fetch(`https://api.github.com/repos/${repo}/actions/workflows/update-votes.yml/dispatches`, {
             method: 'POST',
             headers: {
-                'Accept': 'application/vnd.github.v3+json',
-                'Authorization': `Bearer YOUR_PERSONAL_ACCESS_TOKEN`  // REMOVE this in production!
+                'Accept': 'application/vnd.github.v3+json'
+               // 'Authorization': `Bearer YOUR_PERSONAL_ACCESS_TOKEN`  // REMOVE this in production!
             },
             body: JSON.stringify({
                 ref: 'main',  // Branch name
