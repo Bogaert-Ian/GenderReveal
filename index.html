@@ -3,10 +3,68 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My GitHub Page</title>
+    <title>Gender Reveal</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f4f4f9;
+        }
+        .container {
+            text-align: center;
+            background-color: white;
+            border-radius: 20px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            padding: 40px;
+            width: 350px;
+        }
+        .question {
+            font-size: 1.8em;
+            margin-bottom: 20px;
+        }
+        .buttons {
+            display: flex;
+            justify-content: space-around;
+            margin-top: 20px;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 1.2em;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            color: white;
+            transition: transform 0.2s;
+        }
+        .boy {
+            background-color: #4dabf7;
+        }
+        .girl {
+            background-color: #ff6b81;
+        }
+        button:hover {
+            transform: scale(1.1);
+        }
+        .results {
+            margin-top: 20px;
+            font-size: 1.2em;
+            font-weight: bold;
+        }
+    </style>
+    <script defer src="script.js"></script>
 </head>
 <body>
-    <h1>Welcome to My GitHub Page!</h1>
-    <p>This is a simple GitHub Pages site.</p>
+    <div class="container">
+        <div class="question">Is it a Boy or a Girl?</div>
+        <div class="buttons">
+            <button class="boy" onclick="vote('boy')">Boy 💙</button>
+            <button class="girl" onclick="vote('girl')">Girl 💖</button>
+        </div>
+        <div class="results" id="results">Loading results...</div>
+    </div>
 </body>
 </html>
