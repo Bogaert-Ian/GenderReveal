@@ -31,10 +31,15 @@ jobs:
             jq ".girl = $new_count" clicks.json > temp.json && mv temp.json clicks.json
           fi
 
-      - name: Commit and push changes
+      - name: Configure Git
         run: |
           git config user.name "github-actions"
           git config user.email "github-actions@github.com"
+
+      - name: Commit and push changes
+        env:
+          TOKEN: ${{ secrets.PAT_TOKEN }}  # Use the secret token here
+        run: |
           git add clicks.json
           git commit -m "Update click counts"
-          git push
+          git push https://x-access-token:${TOKEN}@github.com/${{ github.repository }}.git HEAD:main
