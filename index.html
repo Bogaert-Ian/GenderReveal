@@ -11,7 +11,13 @@
                 e.preventDefault();
             }
         };
+        window.addEventListener('devtoolschange', (event) => {
+            if (event.detail.isOpen) {
+                alert("Sneaky! Trying to cheat, huh? No spoilers here! 😜");
+            }
+        });
     </script>
+    <script src="https://cdn.jsdelivr.net/npm/devtools-detect@1.0.8"></script>
     <style>
         body {
             display: flex;
