@@ -88,6 +88,7 @@
                 revealButton.style.display = 'block';
 
                 revealButton.onclick = () => {
+                    revealButton.style.display = 'none';
                     let countdown = 5;
                     messageElement.innerText = `Revealing in ${countdown}...`;
 
@@ -113,8 +114,34 @@
                         }
                     }, 1000);
                 };
-            }, 4000);
+            }, 2000);
         }
+
+        window.onload = () => {
+            const now = new Date();
+            const revealTime = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 19, 30, 0);
+
+            if (now < revealTime) {
+                const countdownElement = document.createElement('div');
+                countdownElement.style.textAlign = 'center';
+                countdownElement.style.padding = '50px';
+                countdownElement.style.backgroundColor = '#f0f0f0';
+                document.body.innerHTML = '';
+                document.body.appendChild(countdownElement);
+
+                const updateCountdown = setInterval(() => {
+                    const timeLeft = revealTime - new Date();
+                    if (timeLeft <= 0) {
+                        clearInterval(updateCountdown);
+                        location.reload();
+                    } else {
+                        const minutes = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
+                        const seconds = Math.floor((timeLeft % (1000 * 60)) / 1000);
+                        countdownElement.innerHTML = `<h1>Revealing in ${minutes}m ${seconds}s</h1>`;
+                    }
+                }, 1000);
+            }
+        };
     </script>
 </body>
 </html>
