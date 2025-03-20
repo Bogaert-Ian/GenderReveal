@@ -135,7 +135,10 @@
                 document.body.appendChild(countdownElement);
 
                 const updateCountdown = setInterval(() => {
-                    const timeLeft = revealTime -  new Date(new Date().toLocaleString('en-US', { timeZone: 'Europe/Brussels' }));
+                               const now = new Date(new Date().toLocaleString('en-US', { timeZone: 'Europe/Brussels' }));
+ const timeLeft = revealTime - now;
+                                console.log("Now: " + now);
+                                console.log("left: " + timeLeft);
                     if (timeLeft <= 0) {
                         clearInterval(updateCountdown);
                         location.reload();
