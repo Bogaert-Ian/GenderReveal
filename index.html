@@ -56,6 +56,15 @@
     <div id="revealContainer">
         <h1 style="color: #555; margin-bottom: 20px;">Boy or Girl?</h1>
         <div style="display: flex; justify-content: space-around; margin-bottom: 20px;">
+            <div style="text-align: center;">
+                <img src="https://cdn.pixabay.com/photo/2017/01/31/13/14/baby-boy-2027620_960_720.png" alt="Boy" style="width: 80px; margin-bottom: 10px;">
+                <div style="background-color: #6ba8ff; padding: 10px 20px; border-radius: 15px; color: white; font-size: 1.2em;">Boy</div>
+            </div>
+            <div style="text-align: center;">
+                <img src="https://cdn.pixabay.com/photo/2017/01/31/13/14/baby-girl-2027621_960_720.png" alt="Girl" style="width: 80px; margin-bottom: 10px;">
+                <div style="background-color: #ffc0cb; padding: 10px 20px; border-radius: 15px; color: white; font-size: 1.2em;">Girl</div>
+            </div>
+        </div>
             <div style="background-color: #6ba8ff; padding: 20px; border-radius: 15px; color: white; font-size: 1.2em;">Boy</div>
             <div style="background-color: #ffc0cb; padding: 20px; border-radius: 15px; color: white; font-size: 1.2em;">Girl</div>
         </div>
@@ -65,7 +74,9 @@
 
     <script>
         function revealGender() {
-    document.getElementById('revealButton').style.display = 'none';
+    const revealButton = document.getElementById('revealButton');
+    if (!revealButton) return;
+    revealButton.style.display = 'none';
     let countdown = 3;
     const messageElement = document.getElementById('message');
     messageElement.style.display = 'block';
@@ -97,7 +108,9 @@
         }
     }, 1000);
 }
-            document.getElementById('revealButton').style.display = 'none';
+            const revealButton = document.getElementById('revealButton');
+    if (!revealButton) return;
+    revealButton.style.display = 'none';
             document.getElementById('message').style.display = 'block';
             confetti({
                 particleCount: 200,
