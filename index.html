@@ -42,6 +42,9 @@
 
         #message {
             display: none;
+            font-size: 3em;
+            color: #555;
+
             font-size: 2em;
             margin-top: 20px;
             color: #ff6b6b;
@@ -49,14 +52,51 @@
     </style>
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
 </head>
-<body>
+<body style="background: linear-gradient(to right, #6ba8ff, #ffc0cb);">
     <div id="revealContainer">
+        <h1 style="color: #555; margin-bottom: 20px;">Boy or Girl?</h1>
+        <div style="display: flex; justify-content: space-around; margin-bottom: 20px;">
+            <div style="background-color: #6ba8ff; padding: 20px; border-radius: 15px; color: white; font-size: 1.2em;">Boy</div>
+            <div style="background-color: #ffc0cb; padding: 20px; border-radius: 15px; color: white; font-size: 1.2em;">Girl</div>
+        </div>
         <button id="revealButton" onclick="revealGender()">Reveal the Gender!</button>
         <div id="message">It's a Girl! 🎀</div>
     </div>
 
     <script>
         function revealGender() {
+    document.getElementById('revealButton').style.display = 'none';
+    let countdown = 5;
+    const messageElement = document.getElementById('message');
+    messageElement.style.display = 'block';
+    messageElement.innerText = countdown;
+
+    const interval = setInterval(() => {
+        countdown--;
+        if (countdown === 0) {
+            document.body.style.background = '#ffc0cb';
+            document.body.style.color = '#ff6b6b';
+            document.body.style.fontFamily = 'Nunito', sans-serif;
+            document.body.innerHTML = `
+                <div style="text-align: center; padding: 50px;">
+                    <h1 style="font-size: 4em; margin-bottom: 20px;">It's a Girl! 🎀</h1>
+                    <p style="font-size: 1.5em;">We are so excited to welcome a little princess!</p>
+                    <img src="https://cdn.pixabay.com/photo/2016/10/25/12/28/pink-1768927_1280.jpg" alt="It's a Girl" style="max-width: 300px; margin-top: 20px; border-radius: 15px;">
+                </div>
+            `;
+            clearInterval(interval);
+            messageElement.innerText = "It's a Girl! 🎀";
+            confetti({
+                particleCount: 200,
+                spread: 70,
+                origin: { y: 0.6 },
+                colors: ['#ff6b6b', '#ffc0cb']
+            });
+        } else {
+            messageElement.innerText = countdown;
+        }
+    }, 1000);
+}
             document.getElementById('revealButton').style.display = 'none';
             document.getElementById('message').style.display = 'block';
             confetti({
