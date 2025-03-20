@@ -124,6 +124,7 @@
            // const utcOffset = now.getTimezoneOffset();
            // const belgiumOffset = -60; // Belgium is UTC+1 normally
             //const adjustedNow = new Date(now.getTime() + (belgiumOffset - utcOffset) * 60 * 1000);
+            console.log("Now: " + now);
             const revealTime = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 19, 30, 0);
             if (now < revealTime && !isAdmin) {
                 const countdownElement = document.createElement('div');
