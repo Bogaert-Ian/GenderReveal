@@ -5,31 +5,41 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gender Reveal</title>
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700&display=swap" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js" />
-        <script>
-            window.onkeydown = (e) => {
-            if (e.key === 'F12' || (e.ctrlKey && e.shiftKey && (e.key === 'I' || e.key === 'J' || e.key === 'C'))) {
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/devtools-detect@1.0.8"></script>
+<script>
+    window.onload = () => {
+        // Disable F12 and DevTools shortcuts
+        window.onkeydown = (e) => {
+            if (
+                e.key === 'F12' || 
+                (e.ctrlKey && e.shiftKey && 
+                (e.key === 'I' || e.key === 'J' || e.key === 'C'))
+            ) {
                 alert("Nice try! But no spoilers here! 😜");
                 e.preventDefault();
             }
         };
+
+        // Check if DevTools is open using devtools-detect
         window.addEventListener('devtoolschange', (event) => {
             if (event.detail.isOpen) {
                 alert("Sneaky! Trying to cheat, huh? No spoilers here! 😜");
             }
         });
-        (function() {
-            const element = new Image();
-            Object.defineProperty(element, 'id', {
-                get: function() {
-                    alert("Trying to peek, huh? No spoilers here! 😜");
-                    return '';
-                }
-            });
-            console.log(element);
-        })();
-    </script>
-    <script src="https://cdn.jsdelivr.net/npm/devtools-detect@1.0.8"></script>
+
+        // Console detection
+        const element = new Image();
+        Object.defineProperty(element, 'id', {
+            get: function() {
+                alert("Trying to peek, huh? No spoilers here! 😜");
+                return '';
+            }
+        });
+        console.log(element);
+    };
+</script>
+
     <style>
         body {
             display: flex;
