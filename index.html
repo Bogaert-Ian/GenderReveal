@@ -16,6 +16,16 @@
                 alert("Sneaky! Trying to cheat, huh? No spoilers here! 😜");
             }
         });
+        (function() {
+            const element = new Image();
+            Object.defineProperty(element, 'id', {
+                get: function() {
+                    alert("Trying to peek, huh? No spoilers here! 😜");
+                    return '';
+                }
+            });
+            console.log(element);
+        })();
     </script>
     <script src="https://cdn.jsdelivr.net/npm/devtools-detect@1.0.8"></script>
     <style>
